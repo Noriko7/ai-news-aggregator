@@ -286,6 +286,15 @@ export default function Home() {
     setShowPromptModal(false);
   };
 
+  const clearAll = () => {
+    setNews([]);
+    setSelectedIds(new Set());
+    setStartDate('');
+    setEndDate('');
+    setLastRange('');
+    setLoading(false);
+  };
+
   const isAllSelected = filteredNews.length > 0 && filteredNews.every(i => selectedIds.has(i.id));
 
   return (
@@ -334,10 +343,15 @@ export default function Home() {
           </label>
         </div>
 
-        <button className={`${styles.actionBtn} ${styles.primary}`} onClick={fetchNews} disabled={loading}>
-          <RefreshCw size={18} className={loading ? styles.spinner : ''} />
-          {loading ? '収集中...' : 'ニュースを更新する'}
-        </button>
+        <div className={styles.inputRow}>
+          <button className={`${styles.actionBtn} ${styles.primary}`} onClick={fetchNews} disabled={loading}>
+            <RefreshCw size={18} className={loading ? styles.spinner : ''} />
+            {loading ? '収集中...' : 'ニュースを更新する'}
+          </button>
+          <button className={`${styles.actionBtn} ${styles.clearBtn}`} onClick={clearAll} disabled={loading}>
+            🗑️ クリア
+          </button>
+        </div>
       </div>
 
       <div className={styles.tabs}>
