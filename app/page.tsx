@@ -72,8 +72,6 @@ export default function Home() {
     
     setStartDate(lastWeek.toISOString().split('T')[0]);
     setEndDate(today.toISOString().split('T')[0]);
-    
-    fetchNews();
   }, []);
 
   const toggleSelect = (id: string, checked: boolean) => {
