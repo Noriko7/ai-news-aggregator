@@ -33,21 +33,7 @@ async function resolveUrl(url: string): Promise<string | null> {
     }
   }
   
-  try {
-    // Check if the final target URL is reachable (filter out 404s)
-    const res = await fetch(targetUrl, {
-      method: 'GET',
-      headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' },
-    });
-    
-    if (!res.ok) {
-      return null; // Page returned 404, 500, etc.
-    }
-    
-    return targetUrl;
-  } catch {
-    return null; // Network error, DNS failure, etc.
-  }
+  return targetUrl;
 }
 
 
