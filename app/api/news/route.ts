@@ -173,14 +173,14 @@ export async function GET(request: Request) {
     const newItems = Array.from(newsMap.values());
 
     // ─── データベースとの統合と最終的な重複排除（常に最新を優先） ───
-    if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
     let db: NewsItem[] = [];
-    if (fs.existsSync(DATA_FILE)) {
-      try {
+    try {
+      if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
+      if (fs.existsSync(DATA_FILE)) {
         db = JSON.parse(fs.readFileSync(DATA_FILE, 'utf-8'));
-      } catch (e) {
-        console.error('Failed to parse news.json', e);
       }
+    } catch (e) {
+      console.warn('Local DB read warning (Vercel serverless environment):', e);
     }
 
     // 全データをマージして日付が新しい順にソート（最新版を優先させるため）
@@ -205,8 +205,12 @@ export async function GET(request: Request) {
 
     const finalUniqueItems = Array.from(finalMap.values());
 
-    // データベースに保存
-    fs.writeFileSync(DATA_FILE, JSON.stringify(finalUniqueItems, null, 2));
+    // データベースに保存（Vercel等のリードオンリー環境ではエラーを無視）
+    try {
+      fs.writeFileSync(DATA_FILE, JSON.stringify(finalUniqueItems, null, 2));
+    } catch (e) {
+      console.warn('Local DB write warning (Vercel serverless environment):', e);
+    }
 
     // クライアントへ返すデータは期間内のものだけに絞る
     let returnItems = finalUniqueItems;
