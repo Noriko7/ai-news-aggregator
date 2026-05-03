@@ -109,7 +109,7 @@ export async function GET(request: Request) {
     const endDate   = searchParams.get('endDate')   || undefined;
 
     // 全キーワードのURLリストを生成（個人用 + 部内用）
-    const allKeywords = [...new Set([...PERSONAL_KEYWORDS, ...DEPT_KEYWORDS])];
+    const allKeywords = Array.from(new Set([...PERSONAL_KEYWORDS, ...DEPT_KEYWORDS]));
     const urls = allKeywords.map(kw => ({
       keyword: kw,
       url: buildGoogleNewsUrl(kw, startDate, endDate),
