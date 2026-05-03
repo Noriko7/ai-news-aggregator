@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p C:/Users/seven/OneDrive/デスクトップ/東京通信大学/2026年授業/4年1学期/マーケティング概論Ⅰ C:/Users/seven/OneDrive/デスクトップ/東京通信大学/2026年授業/4年1学期/情報マネジメント概論A C:/Users/seven/OneDrive/デスクトップ/東京通信大学/2026年授業/4年1学期/データサイエンス概論 C:/Users/seven/OneDrive/デスクトップ/東京通信大学/2026年授業/4年1学期/オープンデータ基礎論 C:/Users/seven/OneDrive/デスクトップ/東京通信大学/2026年授業/4年1学期/データ構造とアルゴリズムⅠ C:/Users/seven/OneDrive/デスクトップ/東京通信大学/2026年授業/4年1学期/実践プログラミングⅠ C:/Users/seven/OneDrive/デスクトップ/東京通信大学/2026年授業/4年1学期/ソフトウェア総論Ⅰ C:/Users/seven/OneDrive/デスクトップ/東京通信大学/2026年授業/4年1学期/データベース論Ⅰ C:/Users/seven/OneDrive/デスクトップ/東京通信大学/2026年授業/4年1学期/インターネット技術Ⅰ C:/Users/seven/OneDrive/デスクトップ/東京通信大学/2026年授業/4年1学期/情報セキュリティⅠ)",
+      "Read(//c/Users/seven/OneDrive/デスクトップ/東京通信大学/2026年授業/4年1学期/**)"
+    ]
+  }
+}
