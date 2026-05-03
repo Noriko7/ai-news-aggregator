@@ -11,7 +11,7 @@
   "dependencies": {
     "google-news-url-decoder": "^1.2.1",
     "lucide-react": "^0.470.0",
-    "next": "15.0.0",
+    "next": "15.0.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rss-parser": "^3.13.0",
