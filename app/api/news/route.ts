@@ -85,6 +85,11 @@ function isTrustedUrl(url: string): boolean {
   }
 }
 
+// タイトルに日本語（ひらがな・カタカナ・漢字）が含まれているかチェック
+function isJapanese(text: string): boolean {
+  return /[\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF]/.test(text);
+}
+
 
 function checkIsPriority(title: string, snippet: string): boolean {
   // タイトルに対象サービス名が含まれること（厳格：タイトルのみチェック）
@@ -153,6 +158,9 @@ export async function GET(request: Request) {
       const normalTitle = normalizeTitle(title);
 
       if (shouldExclude(text)) continue;
+
+      // 英語のみのタイトルは除外（日本語文字が1文字も含まれていない場合）
+      if (!isJapanese(title)) continue;
 
       // Skip if same title already seen (duplicate from different search keyword)
       if (seenTitles.has(normalTitle)) continue;
