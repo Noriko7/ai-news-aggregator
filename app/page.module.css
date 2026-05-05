@@ -5,9 +5,15 @@
 }
 
 .header {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   border-bottom: 1px solid var(--border);
   padding-bottom: 1rem;
+}
+
+.headerTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .title {
@@ -33,6 +39,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
+  justify-content: flex-start;
   gap: 1.5rem;
   box-shadow: var(--shadow-sm);
 }
@@ -53,8 +60,14 @@
 
 .inputRow {
   display: flex;
-  gap: 12px;
+  align-items: center;
+  gap: 8px;
   flex-wrap: wrap;
+}
+
+.dateSeparator {
+  color: var(--muted);
+  font-weight: bold;
 }
 
 .dateInput {
@@ -76,10 +89,10 @@
 
 .checkboxGroup {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  justify-content: center;
-  padding-bottom: 6px;
+  flex-direction: row; /* Changed to row */
+  align-items: center;
+  gap: 16px;
+  height: 38px; /* Match input height */
 }
 
 .checkItem {
@@ -96,26 +109,39 @@
   cursor: pointer;
 }
 
-/* Last Updated Alert */
+.formActions {
+  display: flex;
+  gap: 8px;
+  margin-left: auto; /* Push to the right if space allows */
+}
+
+/* Last Updated Alert (Now in header) */
 .lastUpdatedInfo {
-  background: var(--surface-2);
-  border-left: 4px solid var(--primary);
-  padding: 0.75rem 1rem;
-  margin-bottom: 1.5rem;
-  font-size: 0.9rem;
-  color: var(--foreground);
+  font-size: 0.85rem;
+  color: var(--muted);
   display: flex;
   align-items: center;
-  gap: 8px;
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  gap: 6px;
+  background: var(--surface-2);
+  padding: 4px 10px;
+  border-radius: 12px;
+}
+
+/* Controls Bar (Tabs + Actions) */
+.controlsBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 /* Tabs */
 .tabs {
   display: flex;
   gap: 2rem;
-  margin-bottom: 1.5rem;
-  border-bottom: 1px solid var(--border);
 }
 
 .tab {
@@ -142,17 +168,8 @@
 /* Action Bar */
 .actions {
   display: flex;
-  justify-content: flex-end;
-  gap: 0.75rem;
-  margin-bottom: 1.5rem;
-  padding: 0.75rem;
-  background: var(--surface);
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-sm);
-  position: sticky;
-  top: 1rem;
-  z-index: 10;
+  gap: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 /* Buttons */
