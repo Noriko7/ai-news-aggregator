@@ -54,3 +54,54 @@ export const UPDATE_TERMS = [
   'アップデート', '更新', '変更', '追加', '新機能', 'リリース', '改善',
   '発表', '対応', '搭載', '提供開始', '利用可能'
 ];
+// ─── 信頼済みドメイン（ホワイトリスト）───────────────────────────────
+// このリストに含まれるドメインの記事のみを表示します。
+// 部内共有の安全性確保のため、公式・主要メディアのみを許可します。
+export const TRUSTED_DOMAINS = [
+  // ─ Microsoft 公式 ─
+  'microsoft.com',
+  'azure.microsoft.com',
+  'learn.microsoft.com',
+  'techcommunity.microsoft.com',
+  'blogs.microsoft.com',
+  'support.microsoft.com',
+
+  // ─ Google / Workspace 公式 ─
+  'blog.google',
+  'workspace.google.com',
+  'developers.googleblog.com',
+  'cloud.google.com',
+  'ai.googleblog.com',
+
+  // ─ OpenAI / ChatGPT 公式 ─
+  'openai.com',
+  'chatgpt.com',
+
+  // ─ Anthropic (Claude) 公式 ─
+  'anthropic.com',
+
+  // ─ 国内主要ITメディア ─
+  'itmedia.co.jp',
+  'atmarkit.itmedia.co.jp',
+  'ascii.jp',
+  'mynavi.jp',
+  'impress.co.jp',
+  'pc.watch.impress.co.jp',
+  'internet.watch.impress.co.jp',
+  'forest.watch.impress.co.jp',
+  'computerworld.jp',
+  'nikkeibp.co.jp',
+  'nikkei.com',
+  'zdnet.com',
+  'cnet.com',
+  'techradar.com',
+
+  // ─ 海外主要ITメディア ─
+  'techcrunch.com',
+  'theverge.com',
+  'wired.com',
+  'venturebeat.com',
+  'arstechnica.com',
+  'thenextweb.com',
+  'engadget.com',
+];

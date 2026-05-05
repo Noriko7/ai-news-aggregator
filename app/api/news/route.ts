@@ -57,7 +57,8 @@ import {
   DEPT_KEYWORDS,
   EXCLUDE_WORDS,
   DEPT_SERVICES,
-  UPDATE_TERMS
+  UPDATE_TERMS,
+  TRUSTED_DOMAINS
 } from '../../../lib/newsConfig';
 
 // ─── Google News RSS URL 生成 ─────────────────────────────────────
@@ -72,6 +73,16 @@ function buildGoogleNewsUrl(keyword: string, startDate?: string, endDate?: strin
 
 function shouldExclude(text: string): boolean {
   return EXCLUDE_WORDS.some(w => text.includes(w));
+}
+
+// ホワイトリストに含まれるドメインかどうかチェック
+function isTrustedUrl(url: string): boolean {
+  try {
+    const hostname = new URL(url).hostname.replace(/^www\./, '');
+    return TRUSTED_DOMAINS.some(domain => hostname === domain || hostname.endsWith('.' + domain));
+  } catch {
+    return false; // URLが不正な場合は除外
+  }
 }
 
 
@@ -114,6 +125,9 @@ export async function GET(request: Request) {
           
           // Skip if the URL is broken or unreachable
           if (!resolvedUrl) continue;
+          
+          // Skip if not a trusted domain (security check)
+          if (!isTrustedUrl(resolvedUrl)) continue;
           
           items.push({ item: { ...item, link: resolvedUrl }, isDept });
         }
