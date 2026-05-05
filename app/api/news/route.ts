@@ -225,7 +225,25 @@ export async function GET(request: Request) {
       finalSeenTitles.add(normalTitle);
     }
 
-    const finalUniqueItems = Array.from(finalMap.values());
+    // ─── 同一ドメイン内のタイトル類似記事の重複排除 ───
+    // 同じドメインから取得した記事でタイトル先頭20文字が一致する場合、新しい方だけ残す
+    const getDomain = (url: string) => {
+      try { return new URL(url).hostname.replace(/^www\./, ''); } catch { return ''; }
+    };
+    const TITLE_PREFIX_LEN = 20;
+
+    const dedupedItems = Array.from(finalMap.values());
+    // ドメイン × タイトルプレフィックス をキーにして、最初に登場したもの（日付の新しい順なので最新）だけ残す
+    const domainTitleSeen = new Set<string>();
+    const finalUniqueItems = dedupedItems.filter(item => {
+      const domain = getDomain(item.link);
+      const prefix = normalizeTitle(item.title).slice(0, TITLE_PREFIX_LEN);
+      const key = `${domain}::${prefix}`;
+      if (domainTitleSeen.has(key)) return false;
+      domainTitleSeen.add(key);
+      return true;
+    });
+
 
     // データベースに保存（Vercel等のリードオンリー環境ではエラーを無視）
     try {
