@@ -399,11 +399,11 @@ export default function Home() {
             const isChecked = selectedIds.has(item.id);
             return (
               <div key={item.id} className={`${styles.card} ${isChecked ? styles.selected : ''}`}>
-                {item.isPriority && (
-                  <div className={styles.priorityBadge}>重要トピック</div>
-                )}
                 <div className={styles.cardHeader}>
-                  <div className={styles.sourceBadge}>{item.source}</div>
+                  <div>
+                    {item.isPriority && <span className={styles.priorityBadge}>重要トピック</span>}
+                    <span className={styles.sourceBadge}>{item.source}</span>
+                  </div>
                   <div className={styles.checkboxContainer}>
                     <input 
                       type="checkbox" 
