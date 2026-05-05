@@ -230,7 +230,7 @@ export async function GET(request: Request) {
     const getDomain = (url: string) => {
       try { return new URL(url).hostname.replace(/^www\./, ''); } catch { return ''; }
     };
-    const TITLE_PREFIX_LEN = 20;
+    const TITLE_PREFIX_LEN = 30;
 
     const dedupedItems = Array.from(finalMap.values());
     // ドメイン × タイトルプレフィックス をキーにして、最初に登場したもの（日付の新しい順なので最新）だけ残す
