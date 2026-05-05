@@ -17,7 +17,7 @@ type NewsItem = {
 
 export default function Home() {
   const [news, setNews] = useState<NewsItem[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [tab, setTab] = useState<'personal' | 'dept'>('personal');
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   
