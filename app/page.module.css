@@ -115,16 +115,14 @@
   margin-left: auto; /* Push to the right if space allows */
 }
 
-/* Last Updated Alert (Now in header) */
-.lastUpdatedInfo {
-  font-size: 0.85rem;
-  color: var(--muted);
+.lastUpdatedText {
+  font-size: 0.75rem;
+  color: var(--primary);
+  font-weight: 600;
   display: flex;
   align-items: center;
-  gap: 6px;
-  background: var(--surface-2);
-  padding: 4px 10px;
-  border-radius: 12px;
+  gap: 4px;
+  margin-bottom: -2px; /* Pull it slightly closer to the label below */
 }
 
 /* Controls Bar (Tabs + Actions) */

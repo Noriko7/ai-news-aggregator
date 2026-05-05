@@ -300,17 +300,17 @@ export default function Home() {
       <header className={styles.header}>
         <div className={styles.headerTop}>
           <h1 className={styles.title}>AI News Aggregator</h1>
-          {lastRange && (
-            <div className={styles.lastUpdatedInfo}>
-              <CheckSquare size={14} /> 前回: {lastRange}
-            </div>
-          )}
         </div>
         <p className={styles.subtitle}>生成AIの最新動向を美しく、効率的に。</p>
       </header>
 
       <div className={styles.updateForm}>
         <div className={styles.formGroup}>
+          {lastRange && (
+            <div className={styles.lastUpdatedText}>
+              <CheckSquare size={12} /> 前回取得: {lastRange}
+            </div>
+          )}
           <label>取得期間</label>
           <div className={styles.inputRow}>
             <input 
