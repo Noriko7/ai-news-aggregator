@@ -298,28 +298,29 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <div className={styles.headerTop}>
-          <h1 className={styles.title}>AI News Aggregator</h1>
-        </div>
+        <h1 className={styles.title}>AI News Aggregator</h1>
         <p className={styles.subtitle}>生成AIの最新動向を美しく、効率的に。</p>
       </header>
 
+      {lastRange && (
+        <div className={styles.lastUpdatedInfo}>
+          <CheckSquare size={16} /> 前回収集期間: {lastRange}
+        </div>
+      )}
+
       <div className={styles.updateForm}>
-        <div className={styles.formGroup}>
-          {lastRange && (
-            <div className={styles.lastUpdatedText}>
-              <CheckSquare size={12} /> 前回取得: {lastRange}
-            </div>
-          )}
-          <label>取得期間</label>
-          <div className={styles.inputRow}>
+        <div className={styles.inputRow}>
+          <div className={styles.formGroup}>
+            <label>開始日</label>
             <input 
               type="date" 
               className={styles.dateInput} 
               value={startDate} 
               onChange={e => setStartDate(e.target.value)} 
             />
-            <span className={styles.dateSeparator}>〜</span>
+          </div>
+          <div className={styles.formGroup}>
+            <label>終了日</label>
             <input 
               type="date" 
               className={styles.dateInput} 
@@ -329,67 +330,62 @@ export default function Home() {
           </div>
         </div>
         
-        <div className={styles.formGroup}>
-          <label>対象ニュース</label>
-          <div className={styles.checkboxGroup}>
-            <label className={styles.checkItem}>
-              <input type="checkbox" checked={targetPersonal} onChange={e => setTargetPersonal(e.target.checked)} />
-              個人用
-            </label>
-            <label className={styles.checkItem}>
-              <input type="checkbox" checked={targetDept} onChange={e => setTargetDept(e.target.checked)} />
-              部内発信用
-            </label>
-          </div>
+        <div className={styles.checkboxGroup}>
+          <label className={styles.checkItem}>
+            <input type="checkbox" checked={targetPersonal} onChange={e => setTargetPersonal(e.target.checked)} />
+            個人用ビュー
+          </label>
+          <label className={styles.checkItem}>
+            <input type="checkbox" checked={targetDept} onChange={e => setTargetDept(e.target.checked)} />
+            部内発信用
+          </label>
         </div>
 
-        <div className={styles.formActions}>
+        <div className={styles.inputRow}>
           <button className={`${styles.actionBtn} ${styles.primary}`} onClick={fetchNews} disabled={loading}>
-            <RefreshCw size={16} className={loading ? styles.spinner : ''} />
-            {loading ? '収集中...' : 'ニュースを更新'}
+            <RefreshCw size={18} className={loading ? styles.spinner : ''} />
+            {loading ? '収集中...' : 'ニュースを更新する'}
           </button>
-          <button className={`${styles.actionBtn} ${styles.clearBtn}`} onClick={clearAll} disabled={loading} title="クリア">
-            🗑️
+          <button className={`${styles.actionBtn} ${styles.clearBtn}`} onClick={clearAll} disabled={loading}>
+            🗑️ クリア
           </button>
         </div>
       </div>
 
-      <div className={styles.controlsBar}>
-        <div className={styles.tabs}>
-          <button 
-            className={`${styles.tab} ${tab === 'personal' ? styles.active : ''}`}
-            onClick={() => setTab('personal')}
-            style={{ display: targetPersonal ? 'block' : 'none' }}
-          >
-            個人用ビュー
-          </button>
-          <button 
-            className={`${styles.tab} ${tab === 'dept' ? styles.active : ''}`}
-            onClick={() => setTab('dept')}
-            style={{ display: targetDept ? 'block' : 'none' }}
-          >
-            部内発信用ビュー
-          </button>
-        </div>
+      <div className={styles.tabs}>
+        <button 
+          className={`${styles.tab} ${tab === 'personal' ? styles.active : ''}`}
+          onClick={() => setTab('personal')}
+          style={{ display: targetPersonal ? 'block' : 'none' }}
+        >
+          個人用ビュー (新着順)
+        </button>
+        <button 
+          className={`${styles.tab} ${tab === 'dept' ? styles.active : ''}`}
+          onClick={() => setTab('dept')}
+          style={{ display: targetDept ? 'block' : 'none' }}
+        >
+          部内発信用ビュー (優先度順)
+        </button>
+      </div>
 
-        <div className={styles.actions}>
-          <button className={styles.actionBtn} onClick={() => selectAll(filteredNews)}>
-            {isAllSelected ? <CheckSquare size={16} /> : <Square size={16} />}
-            全選択
-          </button>
-          <button className={styles.actionBtn} onClick={openTeamsPreview}>
-            <Copy size={16} /> Teams用
-          </button>
-          <button className={`${styles.actionBtn} ${styles.promptBtn}`} onClick={openPromptModal}>
-            <MessageSquare size={16} /> AIプロンプト
-          </button>
-          <button className={styles.actionBtn} onClick={exportJSON}>
-            <FileJson size={16} /> JSON
-          </button>
-          <button className={`${styles.actionBtn} ${styles.primary}`} onClick={exportExcel}>
-            <Download size={16} /> Excel出力
-          </button>
-        </div>
+      <div className={styles.actions}>
+        <button className={styles.actionBtn} onClick={() => selectAll(filteredNews)}>
+          {isAllSelected ? <CheckSquare size={18} /> : <Square size={18} />}
+          全選択
+        </button>
+        <button className={styles.actionBtn} onClick={openTeamsPreview}>
+          <Copy size={18} /> Teams用コピー
+        </button>
+        <button className={`${styles.actionBtn} ${styles.promptBtn}`} onClick={openPromptModal}>
+          <MessageSquare size={18} /> AI発信プロンプト
+        </button>
+        <button className={styles.actionBtn} onClick={exportJSON}>
+          <FileJson size={18} /> JSON
+        </button>
+        <button className={`${styles.actionBtn} ${styles.primary}`} onClick={exportExcel}>
+          <Download size={18} /> Excel出力
+        </button>
       </div>
 
       {loading ? (
@@ -403,11 +399,11 @@ export default function Home() {
             const isChecked = selectedIds.has(item.id);
             return (
               <div key={item.id} className={`${styles.card} ${isChecked ? styles.selected : ''}`}>
+                {item.isPriority && (
+                  <div className={styles.priorityBadge}>重要トピック</div>
+                )}
                 <div className={styles.cardHeader}>
-                  <div>
-                    {item.isPriority && <span className={styles.priorityBadge}>重要トピック</span>}
-                    <span className={styles.sourceBadge}>{item.source}</span>
-                  </div>
+                  <div className={styles.sourceBadge}>{item.source}</div>
                   <div className={styles.checkboxContainer}>
                     <input 
                       type="checkbox" 
